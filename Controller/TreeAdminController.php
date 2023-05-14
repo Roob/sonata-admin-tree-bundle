@@ -10,13 +10,12 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class TreeAdminController extends CRUDController
 {
-    public function listAction()
+    public function listAction(Request $request): Response
     {
-        $request = $this->getRequest();
         if ($listMode = $request->get('_list_mode')) {
             $this->admin->setListMode($listMode);
         }
-        $listMode = $this->admin->getListMode();
+        $listdMode = $this->admin->getListMode();
 
         if ($listMode === 'tree') {
             $this->admin->checkAccess('list');
@@ -41,9 +40,9 @@ class TreeAdminController extends CRUDController
         return parent::listAction();
     }
 
-    public function treeDataAction()
+    public function treeDataAction(Request $request): Response
     {
-        $request = $this->getRequest();
+      
         
         $doctrine = $this->get('doctrine');
         /** @var EntityManager $em */
